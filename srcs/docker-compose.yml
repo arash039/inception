@@ -33,7 +33,7 @@ services:
       - inception
     env_file:
       - .env
-    #restart: always
+    restart: always
   wordpress:
     container_name: wordpress
     build: ./wordpress/.
@@ -46,7 +46,7 @@ services:
       - .env
     networks:
       - inception
-    #restart: always
+    restart: always
   mariadb:
    container_name: mariadb
    image: my_mariadb
@@ -55,7 +55,7 @@ services:
    - inception
    ports:
     - "3306:3306"
-   #restart: always
+   restart: always
    env_file:
    - .env
    volumes:

@@ -5,10 +5,10 @@ NO_COLOR=\033[0m
 all : up
 
 build:
-	docker compose -f ./srcs/docker-compose.yml build --no-cache && docker compose -f ./srcs/docker-compose.yml up -d
+	docker-compose -f ./srcs/docker-compose.yml build --no-cache && docker compose -f ./srcs/docker-compose.yml up -d
 
 up : 
-	@docker compose -f ./srcs/docker-compose.yml up -d
+	@docker-compose -f ./srcs/docker-compose.yml up -d
 	@if [ $$? -eq 0 ]; then \
 		echo "                                 $(RED)INCEPTION IS READY$(NO_COLOR)"; \
 	else \
@@ -16,19 +16,19 @@ up :
 	fi
 
 down : 
-	docker compose -f ./srcs/docker-compose.yml down
+	docker-compose -f ./srcs/docker-compose.yml down
 
 stop : 
-	docker compose -f ./srcs/docker-compose.yml stop
+	docker-compose -f ./srcs/docker-compose.yml stop
 
 start : 
-	docker compose -f ./srcs/docker-compose.yml start
+	docker-compose -f ./srcs/docker-compose.yml start
 
 status : 
 	docker ps
 
 clean : 
-	docker compose -f ./srcs/docker-compose.yml down
+	docker-compose -f ./srcs/docker-compose.yml down
 	@if [ -n "$$($$(docker images -a -q))" ]; then \
 		docker rmi -f $$(docker images -a -q); \
 	else \
