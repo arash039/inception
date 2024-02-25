@@ -1,0 +1,21 @@
+sudo docker rm -f $(sudo docker ps -a -q)
+sudo docker run -d --name ar_nginx -p 8080:80 -v /home/arash/desktop/inception/src/nginx:/arash nginx_ar
+sudo docker build -t nginx_ar ./src/nginx
+sudo docker exec 4c38d58ae9af ls /var/log/nginx
+sudo docker exec 4c38d58ae9af cat /etc/nginx/nginx.conf
+
+https://docs.docker.com/compose/compose-file/compose-versioning/
+
+docker kill $(docker ps -q)
+docker_clean_ps
+docker rmi $(docker images -a -q)
+
+docker volume ls
+docker volume ls -f dangling=true //not used by other container
+docker volume prune -f
+docker volume rm volume_name
+docker volume rm -f $(docker volume ls -q)
+
+docker exec -it <container_id> bash
+
+
