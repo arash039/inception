@@ -1,8 +1,7 @@
 #!/bin/bash
-echo "Script starting..."
 
-mkdir /var/www/
-mkdir /var/www/html
+mkdir -p /var/www/
+mkdir -p /var/www/html
 
 # if [ ! -d "/var/www/" ]; then
 #   mkdir /var/www/
@@ -13,7 +12,7 @@ mkdir /var/www/html
 
 cd /var/www/html
 
-rm -rf *
+#rm -rf *
 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
 
@@ -32,8 +31,6 @@ apt-get install php-xmlreader php-curl -y
 chmod -R 755 /var/www/html/wp-content
 chown -R www-data:www-data /var/www/html
 
-
-
 sed -i -r "s/db1/$db1_name/1"   /var/www/html/wp-config.php
 sed -i -r "s/user/$db1_user/1"  /var/www/html/wp-config.php
 sed -i -r "s/pwd/$db1_pwd/1"    /var/www/html/wp-config.php
@@ -43,11 +40,9 @@ wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root
 
 wp theme activate twentytwentytwo --allow-root
 
-
 sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
 
-#echo "xxx $(date)" >> x.txt
-echo "xxx $(date)" | tee -a x.txt
+echo "DATE: $(date)" >> x.txt
 mkdir /run/php
 /usr/sbin/php-fpm7.4 -F
 
