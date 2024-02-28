@@ -40,6 +40,10 @@ wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root
 
 wp theme activate twentytwentytwo --allow-root
 
+wp plugin install redis-cache --activate --allow-root
+#wp plugin update --all --allow-root
+cp /var/www/html/wp-content/plugins/redis-cache/includes/object-cache.php /var/www/html/wp-content/object-cache.php
+
 sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
 
 echo "DATE: $(date)" >> x.txt

@@ -1,2 +1,10 @@
 mariadb:
 - SHOW DATABASES;
+
+
+redis:
+- SET xxx
+- GET xxx
+- KEYS *
+- EXPIRE KEYS
+- HEST key --> set in hash
