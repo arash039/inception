@@ -7,7 +7,6 @@ networks:
       driver: default
       config:
         - subnet: 172.20.0.0/16
-
 volumes:
   wordpress:
     name: wordpress
@@ -44,7 +43,7 @@ services:
 
   wordpress:
     container_name: wordpress
-    build: ./requirements/wordpress/.
+    build: ./requirements/bonus/wordpress/.
     image: wordpress:42
     depends_on:
       - mariadb
@@ -56,7 +55,6 @@ services:
     env_file:
       - .env
     restart: always
-
   mariadb:
    container_name: mariadb
    image: my_mariadb
@@ -72,4 +70,59 @@ services:
    volumes:
      - mariadb:/var/lib/mysql
 
-
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp/.
+    image: ftp:42
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "20:20"
+      - "40000-40005:40000-40005"
+    networks:
+     inception:
+       ipv4_address: 172.20.0.5
+    restart: always
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/.
+    image: adminer:42
+    depends_on:
+      - mariadb
+    ports:
+      - "600:80"
+    networks:
+     inception:
+       ipv4_address: 172.20.0.6
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis/.
+    image: redis:42
+    volumes:
+     - wordpress:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+     inception:
+       ipv4_address: 172.20.0.7
+    ports:
+      - "6380:6379"
+    restart: always
+  website:
+    container_name: website
+    build: ./requirements/bonus/jswebsite/.
+    image: jswebsite:42
+    ports:
+      - "3000:3000"
+    networks:
+     inception:
+       ipv4_address: 172.20.0.8
+    restart: always

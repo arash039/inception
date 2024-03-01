@@ -7,7 +7,6 @@ sudo docker exec 4c38d58ae9af cat /etc/nginx/nginx.conf
 https://docs.docker.com/compose/compose-file/compose-versioning/
 
 docker kill $(docker ps -q)
-docker_clean_ps
 docker rmi $(docker images -a -q)
 
 docker volume ls

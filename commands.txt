@@ -1,10 +1,9 @@
 mariadb:
 - SHOW DATABASES;
+- mysql -u [username] -p [database];
+- USE [databasename];
+- SHOW TABLES;
+- SELECT * FROM [tablename];
+- mysql -h 192.168.0.2 -u arash_db_user -p arash_db
+- redis-cli -h 127.0.0.1 -p 6380
 
-
-redis:
-- SET xxx
-- GET xxx
-- KEYS *
-- EXPIRE KEYS
-- HEST key --> set in hash
